@@ -27,7 +27,8 @@ jobs:
         env:
           COC_EMAIL: ${{ secrets.COC_EMAIL }}
           COC_PASSWORD: ${{ secrets.COC_PASSWORD }}
-        run: python main.py
+          CLAN_TAG: ${{ secrets.CLAN_TAG }}
+        run: echo $COC_EMAIL && echo $COC_PASSWORD && echo $CLAN_TAG && python update_war_stats.py
 
       - name: Commit and push changes
         run: |
