@@ -1,5 +1,5 @@
 import requests
-from config.constants import api_key, url, clan_tag, coc_email, coc_password
+from config.constants import url, clan_tag, coc_email, coc_password
 from service.key_manager import get_dynamic_api_key
 
 
@@ -7,7 +7,7 @@ class ApiClient:
 
     def __init__(self):
         self.session = requests.Session()
-        token = api_key
+        token = None
         if not token and coc_email and coc_password:
             token = get_dynamic_api_key(coc_email, coc_password)
         if not token:

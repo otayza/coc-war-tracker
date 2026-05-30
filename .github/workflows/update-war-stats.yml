@@ -1,13 +1,12 @@
 name: Update War Stats
 
 on:
-  schedule:
-    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
+    environment: secrets
 
     permissions:
       contents: write
@@ -19,13 +18,27 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Cache venv
+        id: cache-venv
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-py3.11-${{ hashFiles('requirements.txt') }}
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+
+      - name: Activate venv
+        run: echo "${{ github.workspace }}/.venv/bin" >> $GITHUB_PATH
 
       - name: Run update script
         env:
           COC_EMAIL: ${{ secrets.COC_EMAIL }}
           COC_PASSWORD: ${{ secrets.COC_PASSWORD }}
+          CLAN_TAGS: ${{ vars.CLAN_TAGS }}
         run: python main.py
 
       - name: Commit and push changes
