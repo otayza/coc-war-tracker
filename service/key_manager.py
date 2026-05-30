@@ -44,8 +44,8 @@ def get_dynamic_api_key(email: str, password: str) -> str:
             print("Key existente encontrada para esta IP.")
             return f"Bearer {key['key']}"
 
-    # 5. Si hay 10 keys (máximo), borrar la más antigua
-    if len(keys) >= 10:
+    # 5. Si hay más de 1 key borrar la más antigua
+    if len(keys) > 1:
         oldest_key = keys[0]
         resp = session.post(f"{DEV_API_URL}/apikey/revoke", json={
             "id": oldest_key["id"]

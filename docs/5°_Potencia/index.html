@@ -27,7 +27,7 @@
         }
         table {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             border-collapse: collapse;
             background: #16213e;
@@ -44,6 +44,15 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+        th.sortable:hover {
+            background: #1a4a80;
+        }
+        th.sorted-desc::after { content: ' ▼'; }
+        th.sorted-asc::after { content: ' ▲'; }
         td {
             padding: 0.75rem;
             border-bottom: 1px solid #1a1a2e;
@@ -65,7 +74,7 @@
             font-size: 1.2rem;
         }
         .wars-info {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 2rem auto 0;
             padding: 1rem;
             background: #16213e;
@@ -77,152 +86,168 @@
     </style>
 </head>
 <body>
-    <h1>⚔️ Estadísticas de Guerra</h1>
-    <p class="subtitle">Última actualización: 2026-05-30 20:37 UTC</p>
+    <h1>⚔️ Estadísticas de Guerra de 5° Potencia</h1>
+    <p class="subtitle">Última actualización: 31-05-26 01:03</p>
 
     
-    <table>
+    <table id="stats-table">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Jugador</th>
-                <th>Guerras</th>
-                <th>⭐ Total</th>
-                <th>Ataques</th>
-                <th>⭐ Promedio</th>
+                <th class="sortable" data-col="2" data-type="num">TH</th>
+                <th class="sortable" data-col="3" data-type="num">Guerras</th>
+                <th class="sortable sorted-desc" data-col="4" data-type="num">⭐ Total</th>
+                <th class="sortable" data-col="5" data-type="num">Ataques</th>
+                <th class="sortable" data-col="6" data-type="num">⭐ Promedio</th>
             </tr>
         </thead>
         <tbody>
             
             <tr>
                 <td class="rank">1</td>
-                <td>Alejandro4002</td>
+                <td>Caballero 2.0</td>
+                <td>18</td>
                 <td>1</td>
                 <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">6.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">2</td>
-                <td>santiago</td>
+                <td>King Arthur</td>
+                <td>18</td>
                 <td>1</td>
                 <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">6.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">3</td>
-                <td>EL REY CACA</td>
+                <td>nuts</td>
+                <td>18</td>
                 <td>1</td>
                 <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">6.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">4</td>
-                <td>Jar3dArmstrong8</td>
+                <td>DemonX</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">5</td>
+                <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">5.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">5</td>
-                <td>Jhon Jheyson</td>
+                <td>0sva87</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">5</td>
+                <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">5.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">6</td>
-                <td>calito507mvp</td>
+                <td>Ripper</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">5</td>
+                <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">5.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">7</td>
-                <td>xSabov</td>
+                <td>Boris</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">5</td>
+                <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">5.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">8</td>
-                <td>King Zambrano</td>
+                <td>nacho</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">5</td>
+                <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">5.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">9</td>
-                <td>trosky</td>
+                <td>PRÍNCIPE</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">4</td>
+                <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">4.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">10</td>
-                <td>KazBrekker</td>
+                <td>TimBa</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">4</td>
+                <td class="stars">6</td>
                 <td>2</td>
-                <td class="avg">4.0</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">11</td>
-                <td>Eusebioh</td>
+                <td>UriPons013%</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">3</td>
+                <td class="stars">5</td>
                 <td>2</td>
-                <td class="avg">3.0</td>
+                <td class="avg">2.5</td>
             </tr>
             
             <tr>
                 <td class="rank">12</td>
-                <td>moncho_alk</td>
+                <td>TonyTostado</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">3</td>
+                <td class="stars">4</td>
                 <td>2</td>
-                <td class="avg">3.0</td>
+                <td class="avg">2.0</td>
             </tr>
             
             <tr>
                 <td class="rank">13</td>
-                <td>Fox</td>
+                <td>Elías</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">2</td>
+                <td class="stars">4</td>
                 <td>2</td>
                 <td class="avg">2.0</td>
             </tr>
             
             <tr>
                 <td class="rank">14</td>
-                <td>ALEXBY JR</td>
+                <td>JOAN</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">2</td>
-                <td>2</td>
-                <td class="avg">2.0</td>
+                <td class="stars">3</td>
+                <td>1</td>
+                <td class="avg">3.0</td>
             </tr>
             
             <tr>
                 <td class="rank">15</td>
-                <td>ricardoo_</td>
+                <td>davidpicoo</td>
+                <td>18</td>
                 <td>1</td>
                 <td class="stars">2</td>
                 <td>1</td>
@@ -231,16 +256,18 @@
             
             <tr>
                 <td class="rank">16</td>
-                <td>Pablo</td>
+                <td>Shepira</td>
+                <td>18</td>
                 <td>1</td>
-                <td class="stars">0</td>
-                <td>0</td>
-                <td class="avg">0.0</td>
+                <td class="stars">2</td>
+                <td>1</td>
+                <td class="avg">2.0</td>
             </tr>
             
             <tr>
                 <td class="rank">17</td>
-                <td>Nachong</td>
+                <td>alvaroookease</td>
+                <td>18</td>
                 <td>1</td>
                 <td class="stars">0</td>
                 <td>0</td>
@@ -249,7 +276,8 @@
             
             <tr>
                 <td class="rank">18</td>
-                <td>chemo</td>
+                <td>raditz.mesa</td>
+                <td>18</td>
                 <td>1</td>
                 <td class="stars">0</td>
                 <td>0</td>
@@ -258,7 +286,8 @@
             
             <tr>
                 <td class="rank">19</td>
-                <td>ALEXANDER 55</td>
+                <td>KeyBlack</td>
+                <td>18</td>
                 <td>1</td>
                 <td class="stars">0</td>
                 <td>0</td>
@@ -267,7 +296,8 @@
             
             <tr>
                 <td class="rank">20</td>
-                <td>daniel</td>
+                <td>Yowwi</td>
+                <td>18</td>
                 <td>1</td>
                 <td class="stars">0</td>
                 <td>0</td>
@@ -284,5 +314,38 @@
         1 guerras en la base de datos.
     </div>
     
+
+    <script>
+    document.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+            const table = document.getElementById('stats-table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const col = parseInt(th.dataset.col);
+            const isAsc = th.classList.contains('sorted-asc');
+
+            // Remove sort indicators from all headers
+            table.querySelectorAll('th.sortable').forEach(h => {
+                h.classList.remove('sorted-asc', 'sorted-desc');
+            });
+
+            // Sort rows
+            rows.sort((a, b) => {
+                const aVal = parseFloat(a.cells[col].textContent) || 0;
+                const bVal = parseFloat(b.cells[col].textContent) || 0;
+                return isAsc ? aVal - bVal : bVal - aVal;
+            });
+
+            th.classList.add(isAsc ? 'sorted-desc' : 'sorted-asc');
+
+            // Re-number and re-append
+            rows.forEach((row, i) => {
+                row.cells[0].textContent = i + 1;
+                tbody.appendChild(row);
+            });
+        });
+    });
+    </script>
 </body>
+</html>
 </html>
