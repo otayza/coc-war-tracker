@@ -62,17 +62,12 @@
     <p class="subtitle">Selecciona un clan para ver sus estadísticas</p>
 
     <div class="clan-list">
-        
-        <a class="clan-card" href="./5°_Potencia/index.html">
-            <h2>5° Potencia</h2>
-            <p class="tag">#PC9J0098</p>
+        {% for clan in clans %}
+        <a class="clan-card" href="./{{ clan.folder }}/index.html">
+            <h2>{{ clan.name }}</h2>
+            <p class="tag">{{ clan.tag }}</p>
         </a>
-        
-        <a class="clan-card" href="./6ª_Potencia/index.html">
-            <h2>6ª Potencia</h2>
-            <p class="tag">#2RJPYCGLV</p>
-        </a>
-        
+        {% endfor %}
     </div>
 </body>
 </html>

@@ -27,7 +27,7 @@
         }
         table {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             border-collapse: collapse;
             background: #16213e;
@@ -44,6 +44,15 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+        th.sortable:hover {
+            background: #1a4a80;
+        }
+        th.sorted-desc::after { content: ' ▼'; }
+        th.sorted-asc::after { content: ' ▲'; }
         td {
             padding: 0.75rem;
             border-bottom: 1px solid #1a1a2e;
@@ -65,7 +74,7 @@
             font-size: 1.2rem;
         }
         .wars-info {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 2rem auto 0;
             padding: 1rem;
             background: #16213e;
@@ -77,19 +86,20 @@
     </style>
 </head>
 <body>
-    <h1>⚔️ Estadísticas de Guerra</h1>
+    <h1>⚔️ Estadísticas de Guerra de {{ clan_info.get('name', '') }}</h1>
     <p class="subtitle">Última actualización: {{ updated_at }}</p>
 
     {% if players %}
-    <table>
+    <table id="stats-table">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Jugador</th>
-                <th>Guerras</th>
-                <th>⭐ Total</th>
-                <th>Ataques</th>
-                <th>⭐ Promedio</th>
+                <th class="sortable" data-col="2" data-type="num">TH</th>
+                <th class="sortable" data-col="3" data-type="num">Guerras</th>
+                <th class="sortable sorted-desc" data-col="4" data-type="num">⭐ Total</th>
+                <th class="sortable" data-col="5" data-type="num">Ataques</th>
+                <th class="sortable" data-col="6" data-type="num">⭐ Promedio</th>
             </tr>
         </thead>
         <tbody>
@@ -97,6 +107,7 @@
             <tr>
                 <td class="rank">{{ loop.index }}</td>
                 <td>{{ player.player_name }}</td>
+                <td>{{ player.townhall_level }}</td>
                 <td>{{ player.wars_played }}</td>
                 <td class="stars">{{ player.total_stars }}</td>
                 <td>{{ player.total_attacks }}</td>
@@ -117,5 +128,38 @@
         {{ recent_wars | length }} guerras en la base de datos.
     </div>
     {% endif %}
+
+    <script>
+    document.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+            const table = document.getElementById('stats-table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const col = parseInt(th.dataset.col);
+            const isAsc = th.classList.contains('sorted-asc');
+
+            // Remove sort indicators from all headers
+            table.querySelectorAll('th.sortable').forEach(h => {
+                h.classList.remove('sorted-asc', 'sorted-desc');
+            });
+
+            // Sort rows
+            rows.sort((a, b) => {
+                const aVal = parseFloat(a.cells[col].textContent) || 0;
+                const bVal = parseFloat(b.cells[col].textContent) || 0;
+                return isAsc ? aVal - bVal : bVal - aVal;
+            });
+
+            th.classList.add(isAsc ? 'sorted-desc' : 'sorted-asc');
+
+            // Re-number and re-append
+            rows.forEach((row, i) => {
+                row.cells[0].textContent = i + 1;
+                tbody.appendChild(row);
+            });
+        });
+    });
+    </script>
 </body>
+</html>
 </html>
