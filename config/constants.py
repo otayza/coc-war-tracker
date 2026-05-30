@@ -4,7 +4,7 @@ import os
 # Si no, se generará dinámicamente en ApiService usando email/password.
 coc_email = os.environ.get("COC_EMAIL", "")
 coc_password = os.environ.get("COC_PASSWORD", "")
-clan_tag = "%23"+os.environ.get("CLAN_TAG", "")  
+clan_tag = "%23"+os.environ.get("CLAN_TAGS", "")  
 
 url = "https://api.clashofclans.com/v1/"
 
