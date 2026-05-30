@@ -31,10 +31,11 @@ jobs:
           python -m venv .venv
           .venv/bin/pip install -r requirements.txt
 
+      - name: Activate venv
+        run: echo "${{ github.workspace }}/.venv/bin" >> $GITHUB_PATH
+
       - name: Run update script
         env:
-          VIRTUAL_ENV: .venv
-          PATH: .venv/bin:${{ env.PATH }}
           COC_EMAIL: ${{ secrets.COC_EMAIL }}
           COC_PASSWORD: ${{ secrets.COC_PASSWORD }}
           CLAN_TAGS: ${{ vars.CLAN_TAGS }}
