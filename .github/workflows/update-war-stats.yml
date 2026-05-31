@@ -2,7 +2,7 @@ name: update war stats
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -12,6 +12,8 @@ jobs:
 
     permissions:
       contents: write
+      pages: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
@@ -43,12 +45,20 @@ jobs:
           CLAN_TAGS: ${{ vars.CLAN_TAGS }}
         run: python main.py
 
-      - name: Commit and push changes
+      - name: Commit DB changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add db/wars.db docs/
+          git add -f db/wars.db
           if ! git diff --quiet --cached; then
             git commit -m "Update war stats $(date -u +%Y-%m-%d)"
             git push
           fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

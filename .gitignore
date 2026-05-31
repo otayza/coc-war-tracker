@@ -153,6 +153,10 @@ activemq-data/
 .venv
 env/
 venv/
+
+# Generated files (managed by GitHub Actions)
+db/wars.db
+docs/
 ENV/
 env.bak/
 venv.bak/
