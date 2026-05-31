@@ -58,13 +58,6 @@ class Database:
         """)
         self.conn.commit()
 
-    def war_already_registered(self, clan_tag: str, war_end_time: str) -> bool:
-        row = self.conn.execute(
-            "SELECT 1 FROM war_participation WHERE clan_tag = ? AND war_end_time = ? LIMIT 1",
-            (clan_tag, war_end_time)
-        ).fetchone()
-        return row is not None
-
     def sync_clan_members(self, clan_tag: str, members: list) -> bool:
         """Actualiza la lista de miembros del clan. Devuelve True si hubo cambios."""
         existing = {

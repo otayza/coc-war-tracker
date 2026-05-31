@@ -4,7 +4,7 @@ from zoneinfo import ZoneInfo
 
 from jinja2 import Environment, FileSystemLoader
 
-from service.ApiService import ApiClient
+from service.api_service import ApiClient
 from config.constants import clan_tags
 from db.database import Database
 
@@ -113,6 +113,7 @@ def main():
     try:
         
         clans_info = []
+        any_changes = False
         for clan_tag in clan_tags:
             clan_info = client.get_clan_info(clan_tag)
             members_changed = False
@@ -126,10 +127,14 @@ def main():
                     print(f"[{clan_name}] Sin cambios en miembros.")
             has_updates = process_war(db, client, clan_tag)
             if has_updates or members_changed:
-                generate_html(db, clan_info, clan_tag)
-                generate_index(clans_info)
+                any_changes = True
 
-        db.purge_old_records(max_wars=15)
+        if any_changes:
+            for info in clans_info:
+                generate_html(db, info, info.get("tag", ""))
+            generate_index(clans_info)
+
+        db.purge_old_records(max_wars=20)
     finally:
         db.close()
 
