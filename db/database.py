@@ -67,13 +67,19 @@ class Database:
 
     def sync_clan_members(self, clan_tag: str, members: list) -> bool:
         """Actualiza la lista de miembros del clan. Devuelve True si hubo cambios."""
-        existing = set(
-            row["player_tag"] for row in self.conn.execute(
-                "SELECT player_tag FROM clan_members WHERE clan_tag = ?", (clan_tag,)
+        existing = {
+            (row["player_tag"], row["player_name"], row["townhall_level"])
+            for row in self.conn.execute(
+                "SELECT player_tag, player_name, townhall_level FROM clan_members WHERE clan_tag = ?", (clan_tag,)
             ).fetchall()
-        )
-        new = set(m.get("tag") for m in members)
-        changed = existing != new
+        }
+        new = {
+            (m.get("tag"), m.get("name"), m.get("townHallLevel", 0))
+            for m in members
+        }
+
+        if existing == new:
+            return False
 
         self.conn.execute("DELETE FROM clan_members WHERE clan_tag = ?", (clan_tag,))
         for m in members:
@@ -83,7 +89,7 @@ class Database:
                 (clan_tag, m.get("tag"), m.get("name"), m.get("townHallLevel", 0))
             )
         self.conn.commit()
-        return changed
+        return True
 
     def get_war_attack_count(self, clan_tag: str, war_end_time: str) -> int:
         """Obtiene el número de ataques registrados en la última ejecución."""
