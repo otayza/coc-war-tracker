@@ -118,7 +118,12 @@ def main():
             members_changed = False
             if clan_info:
                 clans_info.append(clan_info)
+                clan_name = clan_info.get("name", clan_tag)
                 members_changed = db.sync_clan_members(clan_tag, clan_info.get("memberList", []))
+                if members_changed:
+                    print(f"[{clan_name}] Miembros actualizados.")
+                else:
+                    print(f"[{clan_name}] Sin cambios en miembros.")
             has_updates = process_war(db, client, clan_tag)
             if has_updates or members_changed:
                 generate_html(db, clan_info, clan_tag)

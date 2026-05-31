@@ -83,9 +83,21 @@
             color: #888;
         }
         .wars-info strong { color: #ccc; }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: #0f3460;
+            color: #f5c518;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .back-btn:hover { background: #1a4a80; }
     </style>
 </head>
 <body>
+    <a class="back-btn" href="../index.html">← Volver al índice</a>
     <h1>⚔️ Estadísticas de Guerra de {{ clan_info.get('name', '') }}</h1>
     <p class="subtitle">Última actualización: {{ updated_at }}</p>
 
